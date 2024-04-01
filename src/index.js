@@ -1,22 +1,14 @@
-import store from "./store";
-import {BUG_ADDED, BUG_REMOVED} from "./actionTypes"
+// import { bugAdded, bugResolved } from "./actionCreators";
+// import store from "./store";
 
-const unsubscribe = store.subscribe(() => {
-    console.log("State changed!", store.getState())
-})
-store.dispatch({
-    type: BUG_ADDED,
-    payload: {
-        description: "Bug1"
-    }
-})
 
-unsubscribe()
+// store.dispatch(bugAdded("Bug 1"))
+// store.dispatch(bugAdded("Bug 2"))
+// console.log(store.getState())
+// store.dispatch(bugResolved(1))
 
-store.dispatch({
-    type: BUG_REMOVED,
-    payload: {
-        id: 1
-    }
-})
-console.log(store.getState())
+// console.log(store.getState())
+
+import store from "./customStore"
+
+console.log(store.getState)

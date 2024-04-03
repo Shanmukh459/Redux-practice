@@ -1,14 +1,12 @@
-// import { bugAdded, bugResolved } from "./actionCreators";
-// import store from "./store";
+import store from "./store"
+import * as actions from './actionCreators'
 
+store.subscribe(() => {
+    console.log("State changed!")
+})
+store.dispatch(actions.bugAdded("Bug 1"))
+store.dispatch(actions.bugAdded("Bug 1"))
+store.dispatch(actions.bugAdded("Bug 1"))
+store.dispatch(actions.bugResolved(1))
 
-// store.dispatch(bugAdded("Bug 1"))
-// store.dispatch(bugAdded("Bug 2"))
-// console.log(store.getState())
-// store.dispatch(bugResolved(1))
-
-// console.log(store.getState())
-
-import store from "./customStore"
-
-console.log(store.getState)
+console.log(customStore.getState())

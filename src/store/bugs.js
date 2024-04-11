@@ -1,6 +1,7 @@
 import { createAction, createReducer, createSlice } from "@reduxjs/toolkit"
 import  { createSelector } from 'reselect'
 import { apiCallBegan } from "./api"
+import moment from "moment"
 
 let lastIndex = 0
 
@@ -23,6 +24,7 @@ const slice = createSlice({
         bugsReceived: (bugs, action) => {
             bugs.list = action.payload
             bugs.loading = false
+            bugs.lastFetch = Date.now()
         },
 
         bugAssignedToUser: (bugs, action) => {
@@ -59,13 +61,22 @@ export const {
 } = slice.actions
 
 const url = "/bugs"
-export const loadBugs = () => 
-    apiCallBegan({
+
+export const loadBugs = () => (dispatch, getState) => {
+    const { lastFetch } = getState().entities.bugs
+    const diffInMinutes = moment().diff(moment(lastFetch), 'minutes')
+
+    if(diffInMinutes < 10) return
+    console.log(lastFetch)
+
+    dispatch(apiCallBegan({
         url,
         onStart: bugsRequested.type,
         onSuccess: bugsReceived.type,
         onError: bugsRequestFailed.type,
-    })
+    }))
+}
+    
 //selector
 export const getUnresolvedBugs = createSelector(
     state => state.entities.bugs,

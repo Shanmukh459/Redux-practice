@@ -94,14 +94,14 @@ export const assignBugToUser = (bugId, userId) => apiCallBegan({
     onSuccess: bugAssignedToUser.type,
 })
     
-//selector
+//selectors
 export const getUnresolvedBugs = createSelector(
     state => state.entities.bugs,
-    bugs => bugs.filter(bug => !bug.resolved)
+    bugs => bugs.list.filter(bug => !bug.resolved)
 )
 
 export const getAssignedBugsToUser = userId => createSelector(
     state => state.entities.bugs,
-    bugs => bugs.filter(bug => bug.userId === userId)
+    bugs => bugs.list.filter(bug => bug.userId === userId)
 )
     
